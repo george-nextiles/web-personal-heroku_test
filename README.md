@@ -35,6 +35,20 @@ heroku config:set -a sandbox-gs-server PROCFILE=server/Procfile
 git push heroku-client HEAD:master
 git push heroku-server HEAD:master
 ```
+7. Check deployment
+```bash
+heroku logs --tail --remote heroku-client
+heroku logs --tail --remote heroku-server
+```
+
+You can also test locally by specifying the `Procfile`
+
+```bash
+heroku local -f client/Procfile
+heroku local -f server/Procfile
+```
+
+Note that the server runs default on port 5000, use the `-p` flag to change it
 
 ## Commands
 
