@@ -1,0 +1,19 @@
+{
+  "name": "web-personal-heroku_test",
+  "version": "1.0.0",
+  "description": "## Setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/george-nextiles/web-personal-heroku_test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/george-nextiles/web-personal-heroku_test/issues"
+  },
+  "homepage": "https://github.com/george-nextiles/web-personal-heroku_test#readme"
+}

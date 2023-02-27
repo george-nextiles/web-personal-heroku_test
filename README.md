@@ -64,8 +64,13 @@ heroku ps:scale server=1 --remote heroku-server
 In trouble, remove buildpacks and redo
 
 ```bash
+# remove buildpack
 heroku buildpacks:clear --remote heroku-client
 heroku buildpacks:clear --remote heroku-server
+
+# add nodejs buildpack
+heroku buildpacks:set heroku/nodejs --remote heroku-server
+heroku buildpacks:set heroku/nodejs --remote heroku-server
 ```
 
 ## Commands
