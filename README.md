@@ -1,5 +1,36 @@
 # web-personal-heroku_test
 
+## Summary
+
+Following this tutorial: https://towardsdev.com/deploying-a-monorepo-to-heroku-74c0d5a1f79e
+
+Steps can be done on the command line, or directly through the heroku console
+
+1. Add buildpacks
+   1. https://github.com/heroku/heroku-buildpack-multi-procfile
+   2. heroku/nodejs
+2. Add Procfile's to client and server
+   1. `web: cd server && npm start`
+   2. `web: cd client && npm start`
+3. Set PROCFILE env variable to point at client or server local Procfile
+   1. `heroku config:set -a heroku-client PROCFILE=client/Procfile` 
+   2. `heroku config:set -a heroku-server PROCFILE=server/Procfile` 
+4. Set env variables in their respective heroku apps
+   1. `CLIENT_ENV=true`
+   2. `SERVER_ENV=true`
+5. Create npm install scripts in root `package.json`
+```json
+    "scripts": {
+       "postinstall": "if [ $CLIENT_ENV ]; then npm run postinstall-client; elif [ $SERVER_ENV ]; then npm run postinstall-server; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
+       "postinstall-client": "cd packages/client && npm install && npm run build",
+       "postinstall-server": "cd packages/server && npm install"
+   }
+```
+6. Commit, and push to heroku remote
+   1. `git push heroku-client main`
+   2. `git push heroku-server main`
+7. Make sure the web dynos are enabled on the heroku console
+
 ## Setup
 
 - Ask admin to be invited to Heroku teams (sandbox, nextiles)
