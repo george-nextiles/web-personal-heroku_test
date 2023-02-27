@@ -4,7 +4,15 @@
 
 - Ask admin to be invited to Heroku teams (sandbox, nextiles)
 - Install heroku CLI
-- Download heroku multi-app buildpack: `heroku create --buildpack https://github.com/heroku/heroku-buildpack-multi-procfile.git`
+- Download heroku multi-app buildpack
+
+```bash
+heroku create --buildpack https://github.com/heroku/heroku-buildpack-multi-procfile.git
+```
+
+```bash
+heroku create --buildpack https://github.com/lstoll/heroku-buildpack-monorepo.git
+```
 
 ## Steps
 
@@ -84,6 +92,8 @@ specify the Enterprise Team name with the --org flag on the heroku create comman
 ```
 
 ## Resources
+- https://towardsdev.com/deploying-a-monorepo-to-heroku-74c0d5a1f79e
+- https://medium.com/inato/how-to-setup-heroku-with-yarn-workspaces-d8eac0db0256
 - https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-multi-procfile
 - https://devcenter.heroku.com/articles/heroku-cli-commands
 - https://michaellin.me/deploy-multiple-apps-in-monorepo-to-heroku/
