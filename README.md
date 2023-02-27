@@ -27,13 +27,17 @@ heroku buildpacks:add -a sandbox-gs-server heroku-community/multi-procfile --rem
 ```
 5. Link `Procfiles`
 ```bash
-heroku config:set -a sandbox-gs-client PROCFILE=client/Procfile
-heroku config:set -a sandbox-gs-server PROCFILE=server/Procfile
+# heroku config:set -a sandbox-gs-client PROCFILE=client/Procfile
+# heroku config:set -a sandbox-gs-server PROCFILE=server/Procfile
+heroku config:set -a sandbox-gs-client PROCFILE=Procfile
+heroku config:set -a sandbox-gs-server PROCFILE=Procfile
 ```
 6. Redeploy local git to heroku remote
 ```bash
-git push heroku-client HEAD:master
-git push heroku-server HEAD:master
+# git push heroku-client HEAD:main
+# git push heroku-server HEAD:main
+git push heroku-client main
+git push heroku-server main
 ```
 7. Check deployment
 ```bash
@@ -49,6 +53,20 @@ heroku local -f server/Procfile
 ```
 
 Note that the server runs default on port 5000, use the `-p` flag to change it
+
+If the above doesn't work, create a Procfile at the root and force the dyno to run
+
+```bash
+heroku ps:scale client=1 --remote heroku-client
+heroku ps:scale server=1 --remote heroku-server
+```
+
+In trouble, remove buildpacks and redo
+
+```bash
+heroku buildpacks:clear --remote heroku-client
+heroku buildpacks:clear --remote heroku-server
+```
 
 ## Commands
 
