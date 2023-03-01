@@ -6,10 +6,27 @@ Following this tutorial: https://towardsdev.com/deploying-a-monorepo-to-heroku-7
 
 Steps can be done on the command line, or directly through the heroku console
 
-1. Add buildpacks
+## Creation
+Projects should have two folders, a client and server folder containing React frontend and express API handling, respectively.
+
+To create respective heroku resources per folder, create the appropriate apps and remote links. Don't forget to include the organization in which these apps will live in
+
+```bash
+heroku create <name-of-app-client> --remote heroku-client --org sandbox
+heroku create <name-of-app-server> --remote heroku-server --org sandbox
+```
+
+Environment variables can be set such as location of procfile via heroky CLI
+
+```bash
+heroku config:set -a <name-of-app> PROCFILE=Procfile
+```
+
+## Deployment
+1. Add buildpacks (in the order below)
    1. https://github.com/heroku/heroku-buildpack-multi-procfile
    2. heroku/nodejs
-2. Add Procfile's to client and server
+2. Add Procfile's to client and server folder
    1. `web: cd server && npm start`
    2. `web: cd client && npm start`
 3. Set PROCFILE env variable to point at client or server local Procfile
@@ -31,6 +48,48 @@ Steps can be done on the command line, or directly through the heroku console
    2. `git push heroku-server main`
 7. Make sure the web dynos are enabled on the heroku console
 
+## Commands
+
+**Specify team**
+
+```bash
+--org 
+```
+
+**Add buildpacks**
+
+```
+heroku buildpacks:add -a <name-of-app> heroku-community/multi-procfile --remote heroku-client
+```
+
+**Set environment variables**
+
+```
+heroku config:set -a <name-of-app> PROCFILE=Procfile
+```
+
+**Deploy app with git changes**
+
+6. Redeploy local git to heroku remote
+```bash
+git push heroku-client main # git remote, not app name
+git push heroku-server main
+```
+
+**Get logs**
+```bash
+heroku logs --tail --remote heroku-client # git remote, not app name
+heroku logs --tail --remote heroku-server
+```
+
+## Resources
+- https://towardsdev.com/deploying-a-monorepo-to-heroku-74c0d5a1f79e
+- https://medium.com/inato/how-to-setup-heroku-with-yarn-workspaces-d8eac0db0256
+- https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-multi-procfile
+- https://devcenter.heroku.com/articles/heroku-cli-commands
+- https://michaellin.me/deploy-multiple-apps-in-monorepo-to-heroku/
+
+<!--
 ## Setup
 
 - Ask admin to be invited to Heroku teams (sandbox, nextiles)
@@ -111,20 +170,4 @@ heroku buildpacks:clear --remote heroku-server
 heroku buildpacks:set heroku/nodejs --remote heroku-server
 heroku buildpacks:set heroku/nodejs --remote heroku-server
 ```
-
-## Commands
-
-heroku commands
-
-specify team
-
-```bash
-specify the Enterprise Team name with the --org flag on the heroku create command
-```
-
-## Resources
-- https://towardsdev.com/deploying-a-monorepo-to-heroku-74c0d5a1f79e
-- https://medium.com/inato/how-to-setup-heroku-with-yarn-workspaces-d8eac0db0256
-- https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-multi-procfile
-- https://devcenter.heroku.com/articles/heroku-cli-commands
-- https://michaellin.me/deploy-multiple-apps-in-monorepo-to-heroku/
+-->
